@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Schedule</title>
+
+<style>
+body {
+    margin: 0;
+    background: #101014;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.top {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hero {
+	min-height: 20vh;
+	display: flex;
+	align-items: flex-end;
+	padding: 150px 6% 80px;
+	position: relative;
+	background:
+		linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.3)),
+		url("CarmodyImage.png")
+		center/cover; 
+        background-size: 100% 99%;
+}
+
+body {
+    background: #101014;
+    color: white;
+    transition: background 0.2s, color 0.2s;
+}
+
+body.light-mode {
+    background: #f2f2f5;
+    color: #17171a;
+}
+
+h1 {
+    margin-bottom: 15px;
+}
+
+.back-button {
+    position: absolute;
+    top: 25px;
+    left: 6%;
+
+    background: rgba(40, 41, 47, 0.9);
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+
+    padding: 10px 16px;
+
+    font-size: 15px;
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+
+    transition: 0.2s;
+}
+
+.back-button:hover {
+    background: rgba(60, 61, 68, 0.95);
+}
+
+.scroll-button {
+    background: #3968ed;
+    color: white;
+    border: none; 
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.schedule {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#schedule-delay {
+    margin-top: 60px;
+}
+
+.schedule img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+</style>
+</head>
+
+<body>
+
+    <main id="top">
+<section class="hero">
+	<div class="hero-content">
+        <h1>Carmody Schedule</h1>
+    </div>
+    <button class="back-button" onclick="history.back()">
+    ← Back
+</section>
+
+<div class="top">
+    <button class="scroll-button" onclick="scrollToSchedule()">
+        View Schedule
+    </button>
+
+    <button class="scroll-button" onclick="scrollToScheduleDelay()">
+         2-hour delay Schedule
+    </button>
+
+
+</div>
+
+<div class="schedule" id="schedule">
+
+    <img src="CarmodySchedule.png" alt="School Schedule">
+
+</div>
+
+<div class="schedule" id="schedule-delay">
+
+    <img src="DelayedSchedule.png" alt="School Schedule">
+
+</div>
+
+<script>
+function scrollToSchedule() {
+    document.getElementById("schedule").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function scrollToScheduleDelay() {
+    document.getElementById("schedule-delay").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+ 
+const savedDarkMode = localStorage.getItem("classflowDarkMode");
+
+if (savedDarkMode === "false") {
+    document.body.classList.add("light-mode");
+}
+</script>
+
+</body>
+</html> 

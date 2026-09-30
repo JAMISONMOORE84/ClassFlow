@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassFlow</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #101014;
+    color: white;
+    transition: background 0.2s, color 0.2s;
+}
+
+header {
+    height: 58px;
+    background: #292a2f;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid #3a3b40;
+}
+
+.menu-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-btn span {
+    width: 20px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.menu {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    width: 230px;
+    height: calc(100vh - 58px);
+    background: #292a2f;
+    color: white;
+    border-right: 1px solid #3a3b40;
+    padding: 14px;
+    transform: translateX(-100%);
+    z-index: 1000;
+    transition: transform 0.2s ease;
+}
+
+.menu.open {
+    transform: translateX(0);
+}
+
+.menu a {
+    display: block;
+    padding: 11px 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 7px;
+}
+
+.menu a:hover {
+    background: #3a3b40;
+}
+
+.sponsor-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: none;
+    overflow-y: auto;
+    padding: 25px 15px;
+    box-sizing: border-box;
+}
+
+.sponsor-modal.active {
+    display: block;
+}
+
+.sponsor-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+}
+
+.sponsor-box {
+    position: relative;
+    z-index: 100001;
+    width: min(680px, 100%);
+    margin: 20px auto;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #111;
+    color: white;
+    border: 1px solid rgba(255,255,255,.15);
+}
+
+.sponsor-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255,255,255,.2);
+    background: transparent;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.sponsor-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: .55;
+    margin-bottom: 18px;
+}
+
+.sponsor-box h2 {
+    margin: 0 0 20px;
+    font-size: clamp(48px, 10vw, 82px);
+    line-height: .85;
+    letter-spacing: -3px;
+}
+
+.sponsor-description {
+    color: rgba(255,255,255,.65);
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.sponsor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.form-group label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    color: rgba(255,255,255,.55);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: #191919;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: rgba(255,255,255,.6);
+}
+
+.sponsor-submit {
+    width: 100%;
+    padding: 17px;
+    border: 0;
+    background: white;
+    color: black;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .sponsor-box {
+        padding: 30px 20px;
+        margin: 10px auto;
+    }
+}
+
+.image-banner-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 2px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .image-banner-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-left 25s linear infinite;
+        }
+
+        .image-banner-track img {
+            height: 50px;         
+            width: auto;            
+            margin: 0 30px;         
+            object-fit: contain;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+body.light-mode {
+    background: #f2f2f5;
+    color: #17171a;
+}
+
+body.light-mode header {
+    background: #ffffff;
+    color: #17171a;
+    border-bottom-color: #ddd;
+}
+
+body.light-mode .menu {
+    background: #ffffff;
+    color: #17171a;
+    border-right-color: #ddd;
+}
+
+body.light-mode .menu a {
+    color: #222;
+}
+
+body.light-mode .menu a:hover {
+    background: #f1f1f1;
+}
+
+body.light-mode .menu-btn span {
+    background: #222;
+}
+</style>
+</head>
+
+<body>
+
+    <header>
+        <button class="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="logo">ClassFlow</div> 
+    </header>
+
+    <div class="menu" id="menu">
+        <a href="index.html">Home</a>
+        <a href="Classes.html">Classes</a>
+        <a href="SchoolFolder/Schools.html">Schools</a>
+        <a href="#sponsor" onclick="openSponsorForm(); return false;">
+    SPONSOR ME
+</a>
+        <a href="Settings.html">Settings</a>
+    </div>
+
+     <div class="image-banner-container">
+        <div class="image-banner-track">
+            <img src="SchoolSponsors/CarmodyImage.png" alt="Logo 1">
+            <img src="SchoolSponsors/BearCreekHigh.webp" alt="Logo 2">
+            <img src="SchoolSponsors/GreenGables.png" alt="Logo 3">
+            <img src="SchoolSponsors/BearCreekk8.png" alt="Logo 4">
+            
+            <img src="SchoolSponsors/CarmodyImage.png" alt="Logo 1">
+            <img src="SchoolSponsors/BearCreekHigh.webp" alt="Logo 2">
+            <img src="SchoolSponsors/GreenGables.png" alt="Logo 3">
+            <img src="SchoolSponsors/BearCreekk8.png" alt="Logo 4">
+        </div>
+    </div>
+
+<!-- SPONSOR ME MODAL -->
+<div id="sponsorModal" class="sponsor-modal">
+
+    <div class="sponsor-overlay" onclick="closeSponsorForm()"></div>
+
+    <div class="sponsor-box">
+
+        <button
+            type="button"
+            class="sponsor-close"
+            onclick="closeSponsorForm()"
+        >
+            ×
+        </button>
+
+        <div class="sponsor-label">
+            CLASSFLOW / SCHOOL REQUEST
+        </div>
+
+        <h2>
+            SPONSOR<br>ME.
+        </h2>
+
+        <p class="sponsor-description">
+            Interested in working with ClassFlow?
+            Fill out the form below and tell us why we
+            should add your school.
+        </p>
+
+        <form
+            class="sponsor-form"
+            action="https://formsubmit.co/classflow.schoolrequest@gmail.com"
+            method="POST"
+        >
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="New ClassFlow School Request"
+            >
+
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false"
+            >
+
+            <input
+                type="hidden"
+                name="_template"
+                value="table"
+            >
+
+            <div class="form-group">
+
+                <label for="sponsorName">
+                    NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="sponsorName"
+                    name="Name"
+                    placeholder="Your name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="sponsorEmail">
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="sponsorEmail"
+                    name="Email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="sponsorPhone">
+                    PHONE NUMBER
+                </label>
+
+                <input
+                    type="tel"
+                    id="sponsorPhone"
+                    name="Phone"
+                    placeholder="(555) 555-5555"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="sponsorReason">
+                    WHY SHOULD WE ADD YOUR SCHOOL?
+                </label>
+
+                <textarea
+                    id="sponsorReason"
+                    name="Reason"
+                    rows="7"
+                    placeholder="Tell us about your school, what makes it unique, your goals, and why it would be a good fit for ClassFlow."
+                    required
+                ></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="sponsor-submit"
+            >
+                SEND SCHOOL REQUEST →
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</footer>
+
+    <script>
+const savedDarkMode = localStorage.getItem("classflowDarkMode");
+
+if (savedDarkMode === "false") {
+    document.body.classList.add("light-mode");
+}
+
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("open");
+        }
+function openSponsorForm() {
+    const modal = document.getElementById("sponsorModal");
+
+    if (!modal) {
+        console.error("Sponsor modal not found.");
+        return;
+    }
+
+    modal.classList.add("active");
+}
+
+function closeSponsorForm() {
+    const modal = document.getElementById("sponsorModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+}
+
+    </script>
+
+</body>
+</html>

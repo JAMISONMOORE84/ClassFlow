@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Coming Soon | ClassFlow</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #101014;
+    color: white;
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero {
+	min-height: 50vh;
+	display: flex;
+	align-items: flex-end;
+	padding: 150px 6% 80px;
+	position: relative;
+	background:
+		linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.3)),
+		url("BearCreekK8.png")
+		center/cover;
+        background-size: 100% 99%;
+}
+
+body {
+    background: #101014;
+    color: white;
+    transition: background 0.2s, color 0.2s;
+}
+
+body.light-mode {
+    background: #f2f2f5;
+    color: #17171a;
+}
+
+.container {
+    text-align: center;
+    padding: 30px;
+}
+
+.icon {
+    width: 90px;
+    height: 90px;
+    background: #292a2f;
+    border-radius: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 25px;
+
+    font-size: 42px;
+}
+
+h1 {
+    margin: 0 0 12px;
+    font-size: 42px;
+}
+
+p {
+    margin: 0 auto 25px;
+    max-width: 450px;
+    color: #a9a9b1;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.back-button {
+    position: absolute;
+    top: 25px;
+    left: 6%;
+
+    background: rgba(40, 41, 47, 0.9);
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+
+    padding: 10px 16px;
+
+    font-size: 15px;
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+
+    transition: 0.2s;
+}
+
+.back-button:hover {
+    background: rgba(60, 61, 68, 0.95);
+}
+
+.badge {
+    display: inline-block;
+    background: #3968ed;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<main id="top">
+
+<section class="hero">
+	<div class="hero-content">
+        <h1>Bear Creek K-8</h1>
+    </div>
+<button class="back-button" onclick="history.back()">
+    ← Back
+</section>
+
+<div class="container">
+
+    <div class="icon">
+        📚
+    </div>
+
+    <h1>Coming Soon</h1>
+
+    <p>
+        This ClassFlow feature is currently being worked on.
+        Check back soon for updates.
+    </p>
+
+    <div class="badge">
+        Coming Soon
+    </div>
+
+</div>
+<script>
+const savedDarkMode = localStorage.getItem("classflowDarkMode");
+
+if (savedDarkMode === "false") {
+    document.body.classList.add("light-mode");
+}
+</script>
+</body>
+</html>

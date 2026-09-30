@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Settings | ClassFlow</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #101014;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 25px;
+}
+
+body.light-mode {
+    background: #f2f2f5;
+    color: #17171a;
+}
+
+body.light-mode .setting {
+    background: #ffffff;
+}
+
+body.light-mode .back-button {
+    background: #ffffff;
+    color: #17171a;
+}
+
+body.light-mode .section-title {
+    color: #66666d;
+}
+
+body.light-mode .setting-info p {
+    color: #77777f;
+}
+
+body.light-mode select {
+    background: #f2f2f5;
+    color: #17171a;
+    border-color: #d0d0d5;
+}
+
+.settings {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.back-button {
+    background: #292a2f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    color: #9999a2;
+    font-size: 14px;
+    margin: 0 0 10px 5px;
+    text-transform: uppercase;
+}
+
+.setting {
+    background: #292a2f;
+    border-radius: 14px;
+    padding: 17px;
+    margin-bottom: 2px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setting:first-of-type {
+    border-radius: 14px 14px 2px 2px;
+}
+
+.setting:last-child {
+    border-radius: 2px 2px 14px 14px;
+}
+
+.setting-info h2 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.setting-info p {
+    margin: 0;
+    color: #9999a2;
+    font-size: 13px;
+}
+
+select {
+    background: #1b1c20;
+    color: white;
+    border: 1px solid #414249;
+    border-radius: 8px;
+    padding: 9px;
+}
+
+.switch {
+    width: 48px;
+    height: 28px;
+    position: relative;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #44454b;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .2s;
+}
+
+.switch input:checked + .slider {
+    background: #3968ed;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(20px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="settings">
+
+    <div class="top">
+        <button class="back-button" onclick="history.back()">← Back</button>
+        <h1>Settings</h1>
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            Appearance
+        </div>
+
+        <div class="setting">
+
+    <div class="setting-info">
+        <h2>Dark Mode</h2>
+        <p>Use the dark ClassFlow theme</p>
+    </div>
+
+    <label class="switch">
+        <input type="checkbox" id="darkMode" checked>
+        <span class="slider"></span>
+    </label>
+
+</div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            Preferences
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-info">
+                <h2>Notifications</h2>
+                <p>Receive ClassFlow notifications</p>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-info">
+                <h2>School</h2>
+                <p>Select your school</p>
+            </div>
+
+            <select id="schoolSelect">
+    <option value="">None</option>
+    <option value="Carmody">Carmody</option>
+    <option value="BearCreek">BearCreek</option>
+    <option value="GreenGables">GreenGables</option>
+    <option value="K-8">K-8</option>
+    <option value="Other">Other</option>
+</select>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            About
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-info">
+                <h2>Version</h2>
+                <p>ClassFlow</p>
+            </div>
+
+            <span style="color:#9999a2;">
+                1.0
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+const darkMode = document.getElementById("darkMode");
+
+const savedMode = localStorage.getItem("classflowDarkMode");
+
+if (savedMode === "false") {
+    document.body.classList.add("light-mode");
+    darkMode.checked = false;
+}
+
+darkMode.addEventListener("change", function() {
+
+    if (darkMode.checked) {
+        document.body.classList.remove("light-mode");
+        localStorage.setItem("classflowDarkMode", "true");
+    } else {
+        document.body.classList.add("light-mode");
+        localStorage.setItem("classflowDarkMode", "false");
+    }
+
+});
+
+const schoolSelect = document.getElementById("schoolSelect");
+
+const savedSchool = localStorage.getItem("classflowSchool");
+
+if (savedSchool) {
+    schoolSelect.value = savedSchool;
+} else {
+    schoolSelect.value = "";
+}
+
+schoolSelect.addEventListener("change", function() {
+    localStorage.setItem("classflowSchool", schoolSelect.value);
+});
+
+</script>
+
+</body>
+</html>
