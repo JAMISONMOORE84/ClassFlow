@@ -113,6 +113,61 @@ p {
     border-radius: 25px;
     font-weight: bold;
 }
+
+.scroll-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.scroll-button {
+    background: #3968ed;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+    flex: 0 0 auto;
+}
+
+.schedule {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#schedule-delay {
+    margin-top: 60px;
+}
+
+#schedule-delay {
+    margin-top: 60px;
+}
+
+#schedule-assembly {
+    margin-top: 60px;
+}
+
+#schedule-tues-thurs {
+    margin-top: 60px;
+}
+
+#schedule-wed-fri {
+    margin-top: 60px;
+}
+
+.schedule img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
 </style>
 </head>
 
@@ -127,25 +182,91 @@ p {
     ← Back
 </section>
 
-<div class="container">
+<div class="top">
+    <button class="scroll-button" onclick="scrollToSchedule()">
+        View Schedule
+    </button>
 
-    <div class="icon">
-        📚
-    </div>
+    <button class="scroll-button" onclick="scrollToScheduleDelay()">
+         2-hour delay Schedule
+    </button>
 
-    <h1>Coming Soon</h1>
+    <button class="scroll-button" onclick="scrollToScheduleAssembly()">
+         Assembly Schedule
+    </button>
 
-    <p>
-        This ClassFlow feature is currently being worked on.
-        Check back soon for updates.
-    </p>
+    <button class="scroll-button" onclick="scrollToScheduleTuesThurs()">
+         Tues-Thurs Schedule
+    </button>
 
-    <div class="badge">
-        Coming Soon
-    </div>
+    <button class="scroll-button" onclick="scrollToScheduleWedFri()">
+         Wed-Fri Schedule
+    </button>
+
 
 </div>
+
+<div class="schedule" id="schedule">
+
+    <img src="Monday(LATESTART).png" alt="School Schedule">
+
+</div>
+
+<div class="schedule" id="schedule-delay">
+
+    <img src="2-Hour Delay.png" alt="School Schedule">
+
+</div>
+
+<div class="schedule" id="schedule-assembly">
+
+    <img src="Assembly Bell.png" alt="School Schedule">
+
+</div>
+
+<div class="schedule" id="schedule-tues-thurs">
+
+    <img src="TUES-THURS.png" alt="School Schedule">
+
+</div>
+
+<div class="schedule" id="schedule-wed-fri">
+
+    <img src="WED-FRI.png" alt="School Schedule">
+
+</div>
+
 <script>
+function scrollToSchedule() {
+    document.getElementById("schedule").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function scrollToScheduleDelay() {
+    document.getElementById("schedule-delay").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function scrollToScheduleAssembly() {
+    document.getElementById("schedule-assembly").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function scrollToScheduleTuesThurs() {
+    document.getElementById("schedule-tues-thurs").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function scrollToScheduleWedFri() {
+    document.getElementById("schedule-wed-fri").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
 const savedDarkMode = localStorage.getItem("classflowDarkMode");
 
 if (savedDarkMode === "false") {
