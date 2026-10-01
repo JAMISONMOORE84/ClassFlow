@@ -218,6 +218,21 @@ select {
 
         </div>
 
+         <div class="setting">
+
+            <div class="setting-info">
+                <h2>School</h2>
+                <p>Select your school</p>
+            </div>
+
+            <select id="districtSelect">
+    <option value="">None</option>
+    <option value="Carmody">Jeffco Schools</option>
+    <option value="Other">Other</option>
+</select>
+
+        </div>
+
         <div class="setting">
 
             <div class="setting-info">
@@ -231,6 +246,7 @@ select {
     <option value="BearCreek">BearCreek</option>
     <option value="GreenGables">GreenGables</option>
     <option value="K-8">K-8</option>
+    <option value="Dunstan">Dunstan Middle School</option>
     <option value="Other">Other</option>
 </select>
 
@@ -285,7 +301,7 @@ darkMode.addEventListener("change", function() {
 });
 
 const schoolSelect = document.getElementById("schoolSelect");
-
+const districtSelect = document.getElementById("districtSelect");
 const savedSchool = localStorage.getItem("classflowSchool");
 
 if (savedSchool) {
@@ -294,8 +310,20 @@ if (savedSchool) {
     schoolSelect.value = "";
 }
 
+const savedDistrict = localStorage.getItem("classflowDistrict");
+
+if (savedDistrict) {
+    districtSelect.value = savedDistrict;
+} else {
+    districtSelect.value = "";
+}
+
 schoolSelect.addEventListener("change", function() {
     localStorage.setItem("classflowSchool", schoolSelect.value);
+});
+
+districtSelect.addEventListener("change", function() {
+    localStorage.setItem("classflowDistrict", districtSelect.value);
 });
 
 </script>
